@@ -66,34 +66,78 @@ def main():
     # Option 2
 
     # Header for the sidebar
+    # st.sidebar.header("API Key & Value Storage")
+
+    # # Check if the values are already set in session state
+    # if "stored_api_key" not in st.session_state or "stored_api_value" not in st.session_state:
+    #     # Display input fields if values are not set
+    #     api_key = st.sidebar.text_input("API Key", "")
+    #     api_value = st.sidebar.text_input("API Value", "")
+
+    #     if st.sidebar.button("Save"):
+    #         if api_key and api_value:
+    #             # Save the key and value to session state
+    #             st.session_state.stored_api_key = api_key
+    #             st.session_state.stored_api_value = api_value
+    #             st.sidebar.success("Key and Value have been saved!")
+    #         else:
+    #             st.sidebar.error("Please enter both key and value.")
+
+    # else:
+    #     # Show message and update button if values are already set
+    #     st.sidebar.write("API Key and Value are already set.")
+    #     st.sidebar.write(f"Stored API Key: {st.session_state.stored_api_key}")
+    #     st.sidebar.write(f"Stored API Value: {st.session_state.stored_api_value}")
+        
+    #     if st.sidebar.button("Update Key & Value"):
+    #         # Clear the session state to allow for updating
+    #         del st.session_state.stored_api_key
+    #         del st.session_state.stored_api_value
+    #         st.sidebar.success("You can now enter new key and value.")
+
+
+    # Option 3
+    # Header for the sidebar
     st.sidebar.header("API Key & Value Storage")
 
-    # Check if the values are already set in session state
-    if "stored_api_key" not in st.session_state or "stored_api_value" not in st.session_state:
-        # Display input fields if values are not set
-        api_key = st.sidebar.text_input("API Key", "")
-        api_value = st.sidebar.text_input("API Value", "")
+    # Initialize session state variables if they don't exist
+    if "stored_api_key" not in st.session_state:
+        st.session_state.stored_api_key = None
+    if "stored_api_value" not in st.session_state:
+        st.session_state.stored_api_value = None
+    if "show_inputs" not in st.session_state:
+        st.session_state.show_inputs = True
 
+    # Function to handle saving the API key and value
+    def save_credentials():
+        if st.session_state.api_key and st.session_state.api_value:
+            st.session_state.stored_api_key = st.session_state.api_key
+            st.session_state.stored_api_value = st.session_state.api_value
+            st.session_state.show_inputs = False
+            st.sidebar.success("Key and Value have been saved!")
+        else:
+            st.sidebar.error("Please enter both key and value.")
+
+    # Display input fields if they are not yet set
+    if st.session_state.show_inputs:
+        st.sidebar.text_input("API Key", key="api_key")
+        st.sidebar.text_input("API Value", key="api_value")
         if st.sidebar.button("Save"):
-            if api_key and api_value:
-                # Save the key and value to session state
-                st.session_state.stored_api_key = api_key
-                st.session_state.stored_api_value = api_value
-                st.sidebar.success("Key and Value have been saved!")
-            else:
-                st.sidebar.error("Please enter both key and value.")
-
+            save_credentials()
     else:
-        # Show message and update button if values are already set
+        # Show stored values and update button if inputs are not shown
         st.sidebar.write("API Key and Value are already set.")
         st.sidebar.write(f"Stored API Key: {st.session_state.stored_api_key}")
         st.sidebar.write(f"Stored API Value: {st.session_state.stored_api_value}")
         
         if st.sidebar.button("Update Key & Value"):
-            # Clear the session state to allow for updating
-            del st.session_state.stored_api_key
-            del st.session_state.stored_api_value
+            # Allow updating by showing input fields again
+            st.session_state.show_inputs = True
+            # Optionally clear the current values
+            st.session_state.api_key = ""
+            st.session_state.api_value = ""
             st.sidebar.success("You can now enter new key and value.")
+
 
 
     #st.write("Starting the app...")  # Debugging line to check if the app runs
