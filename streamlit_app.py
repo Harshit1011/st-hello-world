@@ -21,7 +21,7 @@ import streamlit as st
 
 # Function to manage page navigation
 def navigate_to(page):
-    st.experimental_set_query_params(page=page)
+    st.query_params(page=page)
 
 # Function to render page content
 def render_page(page):
