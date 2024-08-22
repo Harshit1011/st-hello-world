@@ -98,7 +98,7 @@ def main():
 
     # Option 3
     # Header for the sidebar
-    st.sidebar.header("API Key & Value Storage")
+        st.sidebar.header("API Key & Value Storage")
 
     # Initialize session state variables if they don't exist
     if "stored_api_key" not in st.session_state:
@@ -110,21 +110,21 @@ def main():
 
     # Function to handle saving the API key and value
     def save_credentials():
-        if st.session_state.api_key and st.session_state.api_value:
-            st.session_state.stored_api_key = st.session_state.api_key
-            st.session_state.stored_api_value = st.session_state.api_value
+        if st.session_state.input_api_key and st.session_state.input_api_value:
+            st.session_state.stored_api_key = st.session_state.input_api_key
+            st.session_state.stored_api_value = st.session_state.input_api_value
             st.session_state.show_inputs = False
-            st.session_state.api_key = ""  # Clear input fields
-            st.session_state.api_value = ""  # Clear input fields
+            st.session_state.input_api_key = ""  # Clear input fields
+            st.session_state.input_api_value = ""  # Clear input fields
             st.sidebar.success("Key and Value have been saved!")
         else:
             st.sidebar.error("Please enter both key and value.")
 
     # Display input fields if they are not yet set
     if st.session_state.show_inputs:
-        # Define text input fields using session state keys
-        st.sidebar.text_input("API Key", key="api_key")
-        st.sidebar.text_input("API Value", key="api_value")
+        # Define text input fields with separate keys
+        st.sidebar.text_input("API Key", key="input_api_key")
+        st.sidebar.text_input("API Value", key="input_api_value")
         if st.sidebar.button("Save"):
             save_credentials()
     else:
@@ -136,8 +136,6 @@ def main():
         if st.sidebar.button("Update Key & Value"):
             # Allow updating by showing input fields again
             st.session_state.show_inputs = True
-            st.session_state.api_key = ""  # Reset input fields
-            st.session_state.api_value = ""  # Reset input fields
             st.sidebar.success("You can now enter new key and value.")
 
 
