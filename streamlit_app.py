@@ -98,7 +98,7 @@ def main():
 
     # Option 3
     # Header for the sidebar
-        st.sidebar.header("API Key & Value Storage")
+    st.sidebar.header("API Key & Value Storage")
 
     # Initialize session state variables if they don't exist
     if "stored_api_key" not in st.session_state:
