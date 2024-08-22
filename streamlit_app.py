@@ -46,7 +46,19 @@ def render_page(page):
 # Main function
 def main():
     st.sidebar.title("Credentials")
-    credentials = st.sidebar.selectbox("Select Credential", ["User 1", "User 2", "User 3"])
+
+    if 'credentials' not in st.session_state:
+        # Input fields for credentials
+        username = st.sidebar.text_input("Enter Username")
+        password = st.sidebar.text_input("Enter Password", type="password")
+
+        if st.sidebar.button("Save Credentials"):
+            st.session_state['credentials'] = f"{username} (password: {password})"
+            st.sidebar.success("Credentials saved!")
+    else:
+        st.sidebar.success("Credentials already saved!")
+        st.sidebar.write(f"Stored credentials: {st.session_state['credentials']}")
+        
     #st.write("Starting the app...")  # Debugging line to check if the app runs
     query_params = st.experimental_get_query_params()
     #st.write(f"Query parameters: {query_params}")  # Debugging line to see the query parameters
