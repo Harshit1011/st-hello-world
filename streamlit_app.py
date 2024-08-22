@@ -58,14 +58,14 @@ def main():
     else:
         st.sidebar.success("Credentials already saved!")
         st.sidebar.write(f"Stored credentials: {st.session_state['credentials']}")
-        
+
     #st.write("Starting the app...")  # Debugging line to check if the app runs
     query_params = st.experimental_get_query_params()
     #st.write(f"Query parameters: {query_params}")  # Debugging line to see the query parameters
     page = query_params.get("page", ["home"])[0]
     
     #st.write(f"Rendering page: {page}")  # Debugging line to confirm the correct page is selected
-    render_page(page, credentials)
+    render_page(page)
 
 if __name__ == "__main__":
     main()
