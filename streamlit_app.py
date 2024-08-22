@@ -59,6 +59,10 @@ def main():
         st.sidebar.success("Credentials already saved!")
         st.sidebar.write(f"Stored credentials: {st.session_state['credentials']}")
 
+    if st.sidebar.button("Show session state"):
+        st.write("Current session state:")
+        st.write(st.session_state)
+        
     #st.write("Starting the app...")  # Debugging line to check if the app runs
     query_params = st.experimental_get_query_params()
     #st.write(f"Query parameters: {query_params}")  # Debugging line to see the query parameters
