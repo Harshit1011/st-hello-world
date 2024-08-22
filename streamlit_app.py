@@ -45,9 +45,12 @@ def render_page(page):
 
 # Main function
 def main():
+    st.write("Starting the app...")  # Debugging line to check if the app runs
     query_params = st.experimental_get_query_params()
+    st.write(f"Query parameters: {query_params}")  # Debugging line to see the query parameters
     page = query_params.get("page", ["home"])[0]
-
+    
+    st.write(f"Rendering page: {page}")  # Debugging line to confirm the correct page is selected
     render_page(page)
 
 if __name__ == "__main__":
