@@ -114,12 +114,15 @@ def main():
             st.session_state.stored_api_key = st.session_state.api_key
             st.session_state.stored_api_value = st.session_state.api_value
             st.session_state.show_inputs = False
+            st.session_state.api_key = ""  # Clear input fields
+            st.session_state.api_value = ""  # Clear input fields
             st.sidebar.success("Key and Value have been saved!")
         else:
             st.sidebar.error("Please enter both key and value.")
 
     # Display input fields if they are not yet set
     if st.session_state.show_inputs:
+        # Define text input fields using session state keys
         st.sidebar.text_input("API Key", key="api_key")
         st.sidebar.text_input("API Value", key="api_value")
         if st.sidebar.button("Save"):
@@ -133,9 +136,8 @@ def main():
         if st.sidebar.button("Update Key & Value"):
             # Allow updating by showing input fields again
             st.session_state.show_inputs = True
-            # Optionally clear the current values
-            st.session_state.api_key = ""
-            st.session_state.api_value = ""
+            st.session_state.api_key = ""  # Reset input fields
+            st.session_state.api_value = ""  # Reset input fields
             st.sidebar.success("You can now enter new key and value.")
 
 
