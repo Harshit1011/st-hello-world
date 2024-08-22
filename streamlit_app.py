@@ -45,13 +45,15 @@ def render_page(page):
 
 # Main function
 def main():
-    st.write("Starting the app...")  # Debugging line to check if the app runs
+    st.sidebar.title("Credentials")
+    credentials = st.sidebar.selectbox("Select Credential", ["User 1", "User 2", "User 3"])
+    #st.write("Starting the app...")  # Debugging line to check if the app runs
     query_params = st.experimental_get_query_params()
-    st.write(f"Query parameters: {query_params}")  # Debugging line to see the query parameters
+    #st.write(f"Query parameters: {query_params}")  # Debugging line to see the query parameters
     page = query_params.get("page", ["home"])[0]
     
-    st.write(f"Rendering page: {page}")  # Debugging line to confirm the correct page is selected
-    render_page(page)
+    #st.write(f"Rendering page: {page}")  # Debugging line to confirm the correct page is selected
+    render_page(page, credentials)
 
 if __name__ == "__main__":
     main()
