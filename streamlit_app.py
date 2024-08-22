@@ -47,20 +47,54 @@ def render_page(page):
 def main():
     st.sidebar.title("Credentials")
 
-    if 'credentials' not in st.session_state:
-        # Input fields for credentials
-        username = st.sidebar.text_input("Enter Username")
-        password = st.sidebar.text_input("Enter Password", type="password")
+    # Option 1
+    # if 'credentials' not in st.session_state:
+    #     # Input fields for credentials
+    #     username = st.sidebar.text_input("Enter Username")
+    #     password = st.sidebar.text_input("Enter Password", type="password")
 
-        if st.sidebar.button("Save Credentials"):
-            st.session_state['credentials'] = f"{username} (password: {password})"
-            st.sidebar.success("Credentials saved!")
+    #     if st.sidebar.button("Save Credentials"):
+    #         st.session_state['credentials'] = f"{username} (password: {password})"
+    #         st.sidebar.success("Credentials saved!")
+    # else:
+    #     st.sidebar.success("Credentials already saved!")
+
+    # if st.sidebar.button("Show session state"):
+    #     st.write("Current session state:")
+    #     st.write(st.session_state)
+
+    # Option 2
+
+    # Header for the sidebar
+    st.sidebar.header("API Key & Value Storage")
+
+    # Check if the values are already set in session state
+    if "stored_api_key" not in st.session_state or "stored_api_value" not in st.session_state:
+        # Display input fields if values are not set
+        api_key = st.sidebar.text_input("API Key", "")
+        api_value = st.sidebar.text_input("API Value", "")
+
+        if st.sidebar.button("Save"):
+            if api_key and api_value:
+                # Save the key and value to session state
+                st.session_state.stored_api_key = api_key
+                st.session_state.stored_api_value = api_value
+                st.sidebar.success("Key and Value have been saved!")
+            else:
+                st.sidebar.error("Please enter both key and value.")
+
     else:
-        st.sidebar.success("Credentials already saved!")
+        # Show message and update button if values are already set
+        st.sidebar.write("API Key and Value are already set.")
+        st.sidebar.write(f"Stored API Key: {st.session_state.stored_api_key}")
+        st.sidebar.write(f"Stored API Value: {st.session_state.stored_api_value}")
+        
+        if st.sidebar.button("Update Key & Value"):
+            # Clear the session state to allow for updating
+            del st.session_state.stored_api_key
+            del st.session_state.stored_api_value
+            st.sidebar.success("You can now enter new key and value.")
 
-    if st.sidebar.button("Show session state"):
-        st.write("Current session state:")
-        st.write(st.session_state)
 
     #st.write("Starting the app...")  # Debugging line to check if the app runs
     query_params = st.experimental_get_query_params()
